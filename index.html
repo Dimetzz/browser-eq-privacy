@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Privacy Policy for Browser EQ + Spatializer 9-Band, version 0.5.16.">
+  <title>Privacy Policy | Browser EQ</title>
+  <style>
+    :root { color-scheme:dark; --bg:#0b171e; --surface:#142a35; --line:#294753; --ink:#e8f5f7; --muted:#acc2c9; --accent:#23d3dc; }
+    * {box-sizing:border-box}
+    body {margin:0; background:radial-gradient(ellipse at 50% 0%, #193e48 0%,var(--bg) 48%); color:var(--ink); font:16px/1.75 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;}
+    .wrap {max-width:900px;margin:0 auto;padding:54px 22px 70px}
+    header {border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:30px}
+    .brand {font-weight:800;font-size:19px;letter-spacing:.06em;color:var(--accent);}
+    .brand span{color:var(--ink)}
+    h1{font-size:clamp(32px,5vw,48px);line-height:1.16;letter-spacing:-.025em;margin:19px 0 12px}
+    .subtitle,.meta{color:var(--muted)}
+    .meta{font-size:14px;margin-top:18px}
+    main{background:rgba(20,42,53,.8);border:1px solid var(--line);border-radius:16px;padding:10px 30px 32px}
+    h2{font-size:22px;line-height:1.35;margin:32px 0 12px;color:#f5ffff}
+    p{margin:0 0 18px}
+    strong{color:#fff}
+    .contact{padding:17px 20px;border:1px solid #31606a;background:#17343f;border-radius:10px;margin-top:22px}
+    .contact p{margin:4px 0}
+    footer{margin-top:25px;font-size:13px;color:var(--muted)}
+    a{color:var(--accent)}
+    @media(max-width:640px){.wrap{padding:32px 14px 50px}main{padding:5px 18px 22px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">▥ <span>Browser</span> EQ</div>
+    <h1>Privacy Policy</h1>
+    <div class="subtitle">Browser EQ + Spatializer 9-Band</div>
+    <div class="meta">Extension version: 0.5.16 · Effective date: 23 November 2026</div>
+    <div class="contact">
+      <p><strong>Publisher:</strong> Dimetz</p>
+      <p><strong>Privacy contact:</strong> <a href="mailto:velian@yandex.ru">velian@yandex.ru</a></p>
+    </div>
+  </header>
+  <main>
+    <section>
+      <h2>Purpose and audio</h2>
+      <p>Browser EQ independently adjusts audio from multiple tabs activated by the user, not all Windows system audio. Each tab requires initial user activation and has a separate MediaStream, Web Audio processing graph and settings in one offscreen document. Audio is processed locally in memory, not uploaded or recorded to audio files. Switching tabs or closing the control window does not stop the streams. There is no manual stop button in the interface; tab closure or stream termination releases that capture independently. After a full browser restart, saved settings remain but MediaStreams require renewed user activation.</p>
+    </section>
+    <section>
+      <h2>Tab URLs and settings</h2>
+      <p>Version 0.5.16 reads a tab URL when the user activates Browser EQ on that tab. The profile system does not enumerate other open tabs or read their URLs at startup. The complete selected URL, including query and fragment, is used transiently to compute HMAC-SHA-256 with a randomly generated key stored locally in this extension installation. No plaintext URL is written by the new profile system.</p>
+      <p>A profile identifier contains the keyed digest and an occurrence slot. This is pseudonymization, not anonymization or encryption: someone with the local key and a candidate URL can compute a matching identifier. Query parameters distinguish content such as different videos. Session bindings are invalidated on navigation/loading or closure; persistent settings remain. A later activation can match the current URL again. Changed URLs may not match prior settings. After restart, profiles for exactly identical URLs are assigned in reactivation order, using the lowest available saved slot. This cannot guarantee the identity of indistinguishable restored tabs. Capture requires user activation. A new capture is refused if the tab or required URL becomes unavailable during preparation.</p>
+      <p>When controls are changed or reset, persistent local storage saves the pseudonymous profile identifier and EQ gains, EQ enabled state, compensation, input MONO, Spatializer enabled state, WIDTH, delay and FOCUS boundaries. Profiles and the local matching key remain after a tab closes and have no automatic expiry. Resetting controls resets values; it does not erase profile identifiers. Clear the extension storage or uninstall the extension to remove profiles and the key. Losing the key prevents matching saved identifiers.</p>
+      <p>On upgrade, old stored URL-based profiles are converted locally to keyed identifiers while preserving settings. Old plaintext profile keys are removed after replacement writes succeed. Old session-only bindings without a saved profile are discarded, including bindings created for unrelated tabs by 0.5.12. Migration does not read currently open tabs. If storage fails, migration can retry; old data may remain until migration completes. This does not erase external backups or earlier browser copies.</p>
+      <p>Session storage contains activated-tab/profile bindings (profileBindings), profile reservations for running streams (capturedProfileBindings), the selected UI tab ID (activeAudioTab), control window ID, fullscreen restoration state and optional diagnostic flag. Reservations keep a live stream associated with its own settings after navigation; they are released when it stops and reconciled with the live engines after worker restart. Basic tab IDs and window state are used to select the UI target, including an active-tab query for a focused browser window; this does not persist other tab URLs. Session storage is temporary. Persistent settings and the HMAC key use storage.local, not storage.sync; the extension does not cloud-sync them.</p>
+    </section>
+    <section>
+      <h2>Diagnostics and fullscreen</h2>
+      <p>The extension writes local console diagnostics about fullscreen events, tab/window IDs, state transitions and errors. An optional diagnostic mode adds capture/window information and timestamps. It does not send these logs to the publisher. Browser developer tools determine console retention; sharing logs manually is the user's choice.</p>
+      <p>For captured HTML5 video, the extension may switch that tab's browser window into fullscreen and restore its previous state on exit. Window and tab identifiers are used locally for this behavior.</p>
+    </section>
+    <section>
+      <h2>Spatial presets</h2>
+      <p>Built-in spatial presets change only the three existing delay/FOCUS values. No preset identifier or new personal-data category is stored. CUSTOM is derived from those values. Per-tab icons reflect capture/error state and retain explanatory hover text; no text badges are used.</p>
+    </section>
+    <section>
+      <h2>Transfers and other data</h2>
+      <p>Version 0.5.16 contains no analytics, advertising, telemetry service, publisher account login or remote executable code. Its implementation does not transmit audio, URLs, profile identifiers or settings to the publisher or third parties, sell them, or use them for advertising or credit decisions. It does not read page DOM contents or request microphone capture. Audio and URL-derived identifiers may be personal data. Version 0.5.16 uses temporary activeTab access rather than the broad tabs permission.</p>
+      <p>This policy describes the extension, not the independent behavior of websites, the browser or the Chrome Web Store. Changes to this policy should be published with an updated effective date. Contact the publisher above for privacy questions.</p>
+    </section>
+  </main>
+  <footer>Browser EQ · Privacy Policy · Version 0.5.16</footer>
+</div>
+</body>
+</html>
